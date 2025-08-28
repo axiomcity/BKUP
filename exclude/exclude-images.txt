@@ -1,0 +1,36 @@
+# Created by https://www.toptal.com/developers/gitignore/api/images
+# Edit at https://www.toptal.com/developers/gitignore?templates=images
+
+### Images ###
+# JPEG
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
+*.jp2
+*.j2k
+*.jpf
+*.jpx
+*.jpm
+*.mj2
+
+*.gif
+*.raw
+*.webp
+*.png
+*.apng
+*.mng
+*.tiff
+*.tif
+*.svg
+*.svgz
+*.pdf
+*.xbm
+*.bmp
+*.dib
+*.ico
+*.3dm
+*.max
+

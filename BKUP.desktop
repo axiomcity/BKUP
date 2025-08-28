@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=BKUP
+Comment=BKUP software
+GenericName=BKUP (Sauvegardez vos donnée sous Linux)
+Exec=gnome-terminal -- bash -c "~/bkup/bkup.sh ; exec bash"
+Icon=/home/david/bkup/icon.png
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Development;RevisionControl;
+MimeType=text/plain;
