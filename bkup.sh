@@ -4,6 +4,7 @@ doc=$HOME/Documents
 dow=$HOME/Downloads
 pic=$HOME/Pictures
 mus=$HOME/Music
+vid=$HOME/Videos
 h=$(hostname)_       # Nom sauvegarde ( non modifiable )
 
 
@@ -38,7 +39,7 @@ ft_save() {
 
 
         # Lancer la sauvegarde
-        rsync -av --exclude-from=$exclude  $des $doc $dow $mus $pic $rep1 $rep2 $rep3 $rep4 $rep5 $bkup
+        rsync -av --exclude-from=$exclude  $vid $des $doc $dow $mus $pic $rep1 $rep2 $rep3 $rep4 $rep5 $bkup
         zip -9 -r $bkup.zip $bkup
         echo "[5/5] La sauvegarde a reussi."
         xdg-open $bkup
@@ -48,7 +49,11 @@ ft_save() {
 # INIT - Choisir si les preferences on besoin d'etre modifiees
 clear
 read -p "Modifier les préferences du script ? (y/n) " param
-[[ $HOME/Desktop/BKUP.desktop ]] && echo "Script BKUP pas encore install&" && cp BKUP.desktop $HOME/Desktop/BKUP.desktop
+[[ $HOME/Desktop/BKUP.desktop ]] && echo "Script BKUP pas encore installe" &&
+echo "Icon=$HOME/.icon.png" >> assets/BKUP.desktop &&
+cp assets/BKUP.desktop $HOME/Desktop/BKUP.desktop &&
+cp assets/.icon.png $HOME
+
 
 # NON Lancer la sauvegarde.
 if [ "$param" = "n" ]; then
@@ -76,7 +81,9 @@ echo "$mus"
 echo "$dow"
 echo "$pic"
 echo "$doc"
-
+echo "S'il vous plait avant de realiser une backup veuillez"
+echo "retirer les fichier en cache volumineux qui ne sont pas des données"
+echo " librairies, doublons, archives, logiciels"
 
 # Choisir 1 emplacement de sauvegarde
 echo "[1/5] Dans quel repertoire faire la sauvegarde ?..."
@@ -106,23 +113,15 @@ rep1=$(zenity --file-selection --directory)
 # Exclusions
 clear
 echo "[3/5] Exclusions"
-echo "1) Fichiers en cache Windows Mac Linux android linux .git .env .lnk .cache .log"
-echo "2) Fichiers image .pdf .jpg .png"
-echo "3) Fichiers video .ogv .mp4 .avi"
-echo "4) Fichiers archives .rar .iso .zip .tar .rpm .deb .msi"
-read -p "Choisisez un nombre puis entrez ( par defaut fichiers en cache )" choose
+echo "1) Fichiers en cache Windows Mac Linux android linux -> .git .env .lnk .cache .log"
+echo "2) Fichier en cache + Fichiers video -> .ogv .mp4 .avi"
+read -p "Choisissez un nombre ( par defaut sur 1 )" choose
 case "$choose" in
 1)
-    exclude="eexclud/exclude-default.txt"
+    exclude="exclude/exclude-default.txt"
     ;;
 2)
-    exclude="exclude/exclude-images.txt"
-    ;;
-3)
     exclude="exclude/exclude-videos.txt"
-    ;;
-4)
-    exclude="exclude/exclude-archives.txt"
     ;;
 *)
     exclude="exclude/exclude-default.txt"
